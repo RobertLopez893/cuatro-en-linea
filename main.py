@@ -2,6 +2,7 @@
 
 import pygame
 import time
+import re
 
 
 def crear_tablero(filas, columnas):
@@ -139,7 +140,7 @@ def tablero_lleno(tablero):
 print("--- Bienvenido a Cuatro en Línea REBORN ---")
 pygame.mixer.init()
 pygame.mixer.music.load("song.mp3")
-pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.set_volume(0.1)
 pygame.mixer.music.play(-1)
 print("Jugador 1: Fichas Amarillas (X).")
 print("Jugador 2: Fichas Rojas (O).")
@@ -156,7 +157,13 @@ turno = 1
 
 while True:
     print(f"Turno {turno}")
-    col = int(input(f"Jugador {jugador}, elige tu columna: "))
+    col = input(f"Jugador {jugador}, elige tu columna: ")
+
+    if not re.fullmatch(r'\d+', col):
+        print("Sólo puedes ingresar números.")
+        continue
+
+    col = int(col)
 
     if col < 0 or col >= len(tab[0]):
         print("Columna inválida. Intenta de nuevo.")
